@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITEN Step Up & Stride 2026 - Nuclear Quiz</title>
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #e63946;
+            --accent: #4caf50;
+            --bg: #f4f7f6;
+            --text: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 { color: var(--primary); margin-bottom: 5px; font-size: 24px; }
+        h2 { color: var(--secondary); font-size: 18px; margin-top: 0; margin-bottom: 25px; }
+        .question { font-size: 18px; font-weight: bold; margin-bottom: 20px; text-align: left; line-height: 1.4; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .btn {
+            background: #fff;
+            border: 2px solid #ddd;
+            padding: 14px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: left;
+            transition: all 0.2s ease;
+            line-height: 1.3;
+        }
+        .btn:hover {
+            border-color: var(--primary);
+            background-color: #f0f7ff;
+            transform: translateY(-2px);
+        }
+        .result-card { display: none; }
+        .result-card img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 4px dashed var(--secondary);
+        }
+        .persona-title { font-size: 24px; font-weight: bold; color: var(--primary); }
+        .screenshot-tag {
+            background: #ffe3e3;
+            color: var(--secondary);
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            border: 1px solid var(--secondary);
+        }
+        .progress-bar {
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .progress {
+            height: 100%;
+            background: var(--accent);
+            width: 12.5%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div id="quiz-header">
+        <h1>⚛️ UNITEN TOTAL WELLNESS 2026 ⚛️</h1>
+        <h2>Step Up & Stride: Nuclear Persona Identifier</h2>
+        <div class="progress-bar"><div class="progress" id="progress"></div></div>
+    </div>
+
+    <div id="quiz-screen">
+        <div class="question" id="question-text">Loading question...</div>
+        <div class="options" id="options-container"></div>
+    </div>
+
+    <div id="result-screen" class="result-card">
+        <h2>☢️ YOUR STRIDE PERSONA IS... ☢️</h2>
+        <div class="persona-title" id="persona-name"></div>
+        <img id="persona-img" src="" alt="Funny Cat Nuclear Persona">
+        <p id="persona-desc" style="text-align: left; line-height: 1.5;"></p>
+        
+        <div class="screenshot-tag">
+            📸 SCREENSHOT THIS SCREEN & SEND TO THE WHATSAPP GROUP!
+        </div>
+    </div>
+</div>
+
+<script>
+    const quizData = [
+        {
+            question: "1. The challenge just kicked off for July (200,000 steps). What’s your initial core operating state?",
+            answers: {
+                A: "Prompt Criticality. I’m hitting 25k steps on day one until my shoelaces melt.",
+                B: "Steady baseload power generation. Exactly 6,451 steps clocked daily with perfect precision.",
+                C: "Cold Shutdown. I forgot the challenge started until my teammates tagged me at midnight.",
+                D: "Activating the grid! Launching motivational memes in WhatsApp to elevate everyone's reaction rates."
+            }
+        },
+        {
+            question: "2. It's late August, and the target ramps up to 250,000 steps. You feel a localized system overheat (feet blisters). Strategy?",
+            answers: {
+                A: "Override core safety parameters. Ignore the pain, maximum velocity forward.",
+                B: "Initiate Auxiliary Cooling Systems—ice baths, premium blister pads, and calculated pacing.",
+                C: "Rely heavily on control rods. I'll let my teammates carry the step average while my core recovers.",
+                D: "Thermal dissipation via distraction. Tell funny stories on a team walk to trick everyone into forgetting the pain."
+            }
+        },
+        {
+            question: "3. How exactly do you monitor your data acquisition channels (step trackers)?",
+            answers: {
+                A: "Redundant arrays! Apple Watch, phone, and a manual Excel spreadsheet verification process.",
+                B: "A single, highly calibrated fitness tracker logged precisely at 23:59 every evening.",
+                C: "I constantly forget the tracker on its charger. I'll mathematically deduce my steps based on distance half-life.",
+                D: "Trackers? I just walk and vibes. If we cross the 1.1-million-step finish line together, the data doesn't matter!"
+            }
+        },
+        {
+            question: "4. A teammate is suffering from a dramatic drop in reaction rate (low motivation) in September. What do you do?",
+            answers: {
+                A: "Lap them on the track to assert dominance and inspire them through sheer kinetic kinetic energy.",
+                B: "Send them an optimized, analytical weekly step schedule to get them back to baseline performance.",
+                C: "Celebrate! Finally, someone who matches my resting, low-radiation energy levels.",
+                D: "Bombard them with positive reinforcement, offer to walk together, and bring snacks to boost morale."
+            }
+        },
+        {
+            question: "5. It's October, the peak level (350,000 steps). Heavy rains threaten your outdoor walking path. What's the protocol?",
+            answers: {
+                A: "Deploy waterproof shielding. Rain is just un-condensed cooling water; I'm sprinting through it.",
+                B: "Re-route to an indoor facility (mall or treadmill). Reactor operation must continue uninterrupted.",
+                C: "Containment protocol. Stay inside, wrap in a blanket, and wait for the weather system to decay.",
+                D: "Organize an indoor team pacing party. We can loop the library or department building together!"
+            }
+        },
+        {
+            question: "6. Choose a fast-neutron reflector (your ideal walking environment):",
+            answers: {
+                A: "An open, competitive athletic track where I can maximize my kinetic cross-section.",
+                B: "A perfectly mapped scenic park loop with known distance markers and flat elevation.",
+                C: "My living room, walking back and forth between the couch and the refrigerator.",
+                D: "Anywhere bustling with energy, high music, or surrounded by the entire 7-person squad."
+            }
+        },
+        {
+            question: "7. The overall challenge goal is 1,100,000 steps. What goes through your mind looking at that number?",
+            answers: {
+                A: "Too low. Let's aim to double it and achieve full thermonuclear fusion power.",
+                B: "An completely logical and achievable target when divided by 123 days of challenge runtime.",
+                C: "A terrifyingly vast quantity of kinetic motion. Can we measure it in energy spent sleeping instead?",
+                D: "Think of the epic group photo and victory meal we get to have when we hit the finish line!"
+            }
+        },
+        {
+            question: "8. At the end of the day, why are you really joining this UNITEN Total Wellness challenge?",
+            answers: {
+                A: "To dominate the leaderboard and prove my physical propulsion systems are elite.",
+                B: "To optimize my personal physical health and establish a consistent routine.",
+                C: "Because I was peer-pressured into the reaction matrix and couldn't escape.",
+                D: "To bond with the awesome crew of 7 and have a hilarious time together over the next 4 months!"
+            }
+        }
+    ];
+
+    const personas = {
+        A: {
+            title: "The Prompt Critical Reactor",
+            desc: "<strong>Strengths:</strong> High kinetic energy, massive step output, fiercely competitive, and fuels team velocity.<br><br><strong>Weaknesses:</strong> High risk of thermal meltdown (burnout) before October. Needs to install a cooling loop!",
+            img: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=500&q=80" // Fast/laser-focused chaotic cat
+        },
+        B: {
+            title: "The Steady-State Baseload Plant",
+            desc: "<strong>Strengths:</strong> 99.9% operational uptime. Highly reliable, disciplined, predictable, and delivers consistent daily steps.<br><br><strong>Weaknesses:</strong> Difficult to rapidly overclock if a sudden massive burst of steps is needed at the deadline.",
+            img: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=500&q=80" // Smart, calculating business cat with glasses
+        },
+        C: {
+            title: "The Half-Life Slacker",
+            desc: "<strong>Strengths:</strong> Supreme conservation of energy. Capable of massive, high-pressure 'clutch' steps in the final 48 hours of the month.<br><br><strong>Weaknesses:</strong> Prolonged periods of 'Cold Shutdown.' Requires high external activation energy from teammates to get moving.",
+            img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=500&q=80" // Flat-out, deeply sleeping lazy cat
+        },
+        D: {
+            title: "The Neutron Moderator",
+            desc: "<strong>Strengths:</strong> The ultimate glue of the core. Maximizes team reaction rates, prevents psychological decay, and keeps morale incredibly high.<br><br><strong>Weaknesses:</strong> Spends so much time cheering and coordinating others that they occasionally forget to log their own hardware metrics.",
+            img: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=500&q=80" // Friendly, cheerful smiling cat
+        }
+    };
+
+    let currentIdx = 0;
+    let scores = { A: 0, B: 0, C: 0, D: 0 };
+
+    function loadQuestion() {
+        if (currentIdx >= quizData.length) {
+            showResult();
+            return;
+        }
+        
+        document.getElementById('progress').style.width = ((currentIdx + 1) / quizData.length) * 100 + "%";
+        
+        const q = quizData[currentIdx];
+        document.getElementById('question-text').innerText = q.question;
+        
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        Object.keys(q.answers).forEach(key => {
+            const button = document.createElement('button');
+            button.className = 'btn';
+            button.innerText = `${key}) ${q.answers[key]}`;
+            button.onclick = () => selectOption(key);
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function selectOption(key) {
+        scores[key]++;
+        currentIdx++;
+        loadQuestion();
+    }
+
+    function showResult() {
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('quiz-header').style.display = 'none';
+        
+        let winner = 'A';
+        let maxScore = -1;
+        Object.keys(scores).forEach(key => {
+            if (scores[key] > maxScore) {
+                maxScore = scores[key];
+                winner = key;
+            }
+        });
+        
+        const result = personas[winner];
+        document.getElementById('persona-name').innerText = result.title;
+        document.getElementById('persona-desc').innerHTML = result.desc;
+        document.getElementById('persona-img').src = result.img;
+        
+        document.getElementById('result-screen').style.display = 'block';
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
